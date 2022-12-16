@@ -1,0 +1,17 @@
+.wrap {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  > :first-child {
+    border: none;
+  }
+}
+.body {
+  width: 880px;
+  margin: 25px 42px 33px 19px;
+  font-family: 'InterUI-Regular', sans-serif;
+  font-size: 18px;
+  line-height: 28px;
+  color: rgba(0, 0, 0, 0.75);
+  overflow-wrap: break-word;
+}

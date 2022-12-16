@@ -1,0 +1,19 @@
+.wrap {
+  background-color: #ebeef3;
+  display: flex;
+  flex-direction: column;
+  > :last-child {
+    margin: auto;
+    margin-top: 27px;
+    margin-bottom: 14px;
+    font-family: 'InterUI-Regular', sans-serif;
+    font-size: 12px;
+    line-height: 22px;
+  }
+  & li.articles {
+    width: 941px;
+    padding: 0;
+    margin: auto;
+    margin-top: 26px;
+  }
+}

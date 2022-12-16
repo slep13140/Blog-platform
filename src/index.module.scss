@@ -1,0 +1,39 @@
+@font-face {
+  font-family: 'InterUI-Regular';
+  src: url('../src/fonts/Inter-UI-Regular.woff') format('woff'), url('../src/fonts/Inter-UI-Regular.ttf') format('ttf'),
+    url('../src/fonts/Inter-UI-Regular.eot') format('eot');
+  font-weight: 400;
+  font-style: normal;
+}
+html {
+  box-sizing: border-box;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+body,
+header,
+main,
+section,
+p {
+  margin: 0;
+  padding: 0;
+}
+ul,
+li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+button,
+label {
+  margin: 0;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+}
+body {
+  background-color: #e5e5e5;
+}

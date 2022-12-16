@@ -1,0 +1,29 @@
+.wrap {
+  width: 1440px;
+  height: 80px;
+  font-family: 'InterUI-Regular', sans-serif;
+  font-size: 16px;
+  line-height: 28px;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  & span {
+    &:first-child {
+      width: 147px;
+      margin: 9px auto 15px 22px;
+    }
+    &:nth-child(2) {
+      width: 84px;
+      margin: 22px 19px 23px auto;
+    }
+  }
+  & button {
+    width: 109px;
+    height: 51px;
+    margin: 16px 22px 13px 0;
+    border: 1px solid #52c41a;
+    border-radius: 5px;
+    color: #52c41a;
+    background-color: #ffffff;
+  }
+}
