@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { List } from 'antd'
 
-import Articles from '../Articles/Articles'
-import Spinner from '../Spinner/Spinner'
-import ErrorIndicator from '../ErrorIndicator/ErrorIndicator'
+import Articles from '../Articles'
+import Spinner from '../Spinner'
+import ErrorIndicator from '../ErrorIndicator'
 
 import styles from './ArticlesList.module.scss'
-
-const dataUrl = 'https://blog.kata.academy/api/articles/?offset='
 
 const ArticlesList = () => {
   const [data, setData] = useState([])
   const [offset, setOffset] = useState(0)
   const [dataLoad, setDataLoad] = useState(true)
   const [dataError, setDataError] = useState(false)
+  const dataUrl = 'https://blog.kata.academy/api/articles/?offset='
   const appendData = (id) => {
     fetch(`${dataUrl}${id}`)
       .then((res) => res.json())

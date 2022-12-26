@@ -1,9 +1,12 @@
 import React from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
 
-import BlogHeader from '../BlogHeader/BlogHeader'
-import ArticlesList from '../ArticlesList/ArticlesList'
-import Article from '../Article/Article'
+import BlogHeader from '../BlogHeader'
+import ArticlesList from '../ArticlesList'
+import Article from '../Article'
+import SignUpForm from '../SignUpForm'
+import SignInForm from '../SignInForm'
+import EditProfileForm from '../EditProfileForm'
 
 import styles from './App.module.scss'
 
@@ -18,10 +21,12 @@ function App() {
           path="/articles/:slug"
           render={({ match }) => {
             const { slug } = match.params
-            console.log(match)
             return <Article slugId={slug} />
           }}
         />
+        <Route path="/sign-up" exact component={SignUpForm} />
+        <Route path="/sign-in" exact component={SignInForm} />
+        <Route path="/profile" exact component={EditProfileForm} />
       </BrowserRouter>
     </div>
   )

@@ -1,0 +1,115 @@
+.container {
+  background-color: #ebeef3;
+  display: flex;
+  flex-direction: column;
+}
+.wrap {
+  margin: 59px auto 239px;
+  padding: 48px 32px;
+  font-family: 'Roboto-Regular', sans-serif;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  label {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 22px;
+    color: #262626;
+    display: flex;
+    flex-direction: column;
+    input {
+      width: 320px;
+      padding: 8px 12px;
+      font-size: 16px;
+      line-height: 24px;
+      border: 1px solid #d9d9d9;
+      border-radius: 4px;
+      color: #bfbfbf;
+      &:focus {
+        outline: 2px solid #1890ff;
+      }
+    }
+    &:last-of-type {
+      width: 320px;
+      display: flex;
+      flex-direction: row;
+      span {
+        &:first-of-type {
+          margin-top: 11px;
+          margin-right: 8px;
+        }
+        &:last-of-type {
+          margin-top: 8px;
+        }
+      }
+    }
+  }
+  div {
+    &:last-child {
+      margin-top: 8px;
+      font-size: 12px;
+      line-height: 20px;
+      color: #bfbfbf;
+      text-align: center;
+    }
+  }
+
+  p {
+    color: #f5222d;
+    font-size: 14px;
+    line-height: 22px;
+  }
+  a {
+    text-decoration: none;
+    color: #1890ff;
+  }
+}
+.title {
+  font-family: 'Roboto-Medium', sans-serif;
+  font-size: 20px;
+  line-height: 28px;
+  margin: auto;
+}
+.errors + input[type='text'],
+.errors + input[type='password'] {
+  border: 1px solid #f5222d;
+}
+
+input[type='checkbox'].checkbox {
+  position: absolute;
+  visibility: hidden;
+  outline: none;
+}
+.checkbox {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  border-radius: 2px;
+  background: #ffffff;
+  border: 2px Solid #1890ff;
+}
+.active {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  border-radius: 2px;
+  border: 2px Solid #1890ff;
+  background-image: url('../../image/no-label.svg');
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+.button {
+  margin-top: 21px;
+  width: 319px;
+  background-color: #1890ff;
+  border: 1px Solid #1890ff;
+  border-radius: 4px;
+  color: #ffffff;
+  font-family: 'Roboto-Regular', sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 7px;
+}

@@ -8,7 +8,7 @@ function ArticlesTags({ tags }) {
   if (tags) {
     elements = tags.map((item, index) => {
       const tagId = index
-      let newStr = String(item)
+      let newStr = String(item).trim()
 
       if (newStr) {
         newStr = newStr[0].toUpperCase() + newStr.slice(1)
@@ -21,10 +21,9 @@ function ArticlesTags({ tags }) {
       return <Tag key={tagId}>{tag}</Tag>
     })
   }
-
   const newElem = elements.filter((item) => item.props.children.length > 0)
 
-  return <div className={styles.wrap}>{newElem.slice(0, 2)}</div>
+  return <div className={styles.wrap}>{newElem.slice(0, 2)} </div> || null
 }
 
 export default ArticlesTags

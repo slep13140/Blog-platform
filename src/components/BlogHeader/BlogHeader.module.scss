@@ -7,23 +7,68 @@
   background-color: #ffffff;
   display: flex;
   align-items: center;
-  & span {
+  a {
+    text-decoration: none;
+  }
+}
+.title {
+  width: 147px;
+  margin: 9px auto 15px 22px;
+}
+.signIn {
+  width: 84px;
+  margin: 22px 19px 23px auto;
+}
+.signUp {
+  width: 109px;
+  height: 51px;
+  margin: 16px 22px 13px 0;
+  border: 1px solid #52c41a;
+  border-radius: 5px;
+  color: #52c41a;
+  background-color: #ffffff;
+}
+.logout {
+  width: 109px;
+  height: 51px;
+  margin: 16px 22px 13px 0;
+  border: 1px solid rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
+  font-family: 'InterUI-Regular', sans-serif;
+  font-size: 18px;
+  line-height: 28px;
+  color: rgba(0, 0, 0, 0.75);
+  background-color: #ffffff;
+}
+.profile {
+  height: 46px;
+  margin: 19px 27px 15px 0;
+  font-family: 'InterUI-Regular', sans-serif;
+  font-size: 18px;
+  line-height: 28px;
+  color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  & > span {
+    margin: 0;
     &:first-child {
-      width: 147px;
-      margin: 9px auto 15px 22px;
+      margin-right: 13px;
     }
-    &:nth-child(2) {
-      width: 84px;
-      margin: 22px 19px 23px auto;
+    &:last-child {
+      width: 46px;
+      height: 46px;
     }
   }
-  & button {
-    width: 109px;
-    height: 51px;
-    margin: 16px 22px 13px 0;
-    border: 1px solid #52c41a;
-    border-radius: 5px;
-    color: #52c41a;
-    background-color: #ffffff;
-  }
+}
+.create_article {
+  width: 112.23px;
+  height: 31.1px;
+  margin: 25px 26.77px 23.9px 0;
+  font-family: 'InterUI-Regular', sans-serif;
+  font-size: 14px;
+  line-height: 22px;
+  border: 1px solid #52c41a;
+  border-radius: 5px;
+  color: #52c41a;
+  background-color: #ffffff;
 }
