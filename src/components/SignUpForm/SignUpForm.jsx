@@ -5,10 +5,9 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import * as actions from '../../store/actions'
+import { DoNewRequest } from '../DoNewRequest'
 
 import styles from './SignUpForm.module.scss'
-
-const urlSignUp = 'https://blog.kata.academy/api/users'
 
 function SignUpForm({ logIn, currentUser }) {
   const {
@@ -23,24 +22,17 @@ function SignUpForm({ logIn, currentUser }) {
     defaultValues: { isAgree: true },
   })
 
+  const urlSignUp = 'https://blog.kata.academy/api/users'
   const check = `${styles.checkbox}`
   const checkActive = `${styles.active}`
-
-  const createNewUser = async (url, obj) => {
-    const response = await fetch(url, obj)
-    const result = await response.json()
-    return result
-  }
 
   const newUser = {}
 
   const onSubmit = (data) => {
-    console.log(data)
     newUser.username = data.username
     newUser.email = data.email
     newUser.password = data.password
-    console.log('newUser >>>', newUser)
-    createNewUser(urlSignUp, {
+    DoNewRequest(urlSignUp, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -132,7 +124,12 @@ function SignUpForm({ logIn, currentUser }) {
           <input
             type="password"
             placeholder="Password"
-            {...register('repeatPassword', { required: 'Password field is required.' })}
+            {...register('repeatPassword', {
+              required: 'Password field is required.',
+              validate: {
+                passwordEqual: (value) => value === getValues('password') || 'Password confirmation error!',
+              },
+            })}
           />
         </label>
         <div>
@@ -140,7 +137,7 @@ function SignUpForm({ logIn, currentUser }) {
             <p>Passwords must match</p>
           ) : null}
         </div>
-        <div>{errors?.password && <p>{errors?.password?.message || 'Error!'}</p>}</div>
+        <div>{errors?.repeatPassword && <p>{errors?.repeatPassword?.message || 'Error!'}</p>}</div>
         <label>
           <input
             className={styles.checkbox}
@@ -151,7 +148,7 @@ function SignUpForm({ logIn, currentUser }) {
           <span>I agree to the processing of my personal information</span>
         </label>
 
-        <button type="submit" className={styles.button}>
+        <button type="submit" className={styles.button} aria-label="Create new account">
           Create
         </button>
         <div>

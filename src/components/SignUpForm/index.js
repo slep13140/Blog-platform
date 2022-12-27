@@ -1,3 +1,1 @@
-import SignUpForm from './SignUpForm'
-
-export default SignUpForm
+export { default as SignUpForm } from './SignUpForm'

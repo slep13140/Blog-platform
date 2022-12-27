@@ -1,3 +1,1 @@
-import EditProfileForm from './EditProfileForm'
-
-export default EditProfileForm
+export { default as EditProfileForm } from './EditProfileForm'

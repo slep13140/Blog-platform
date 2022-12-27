@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { List } from 'antd'
 
-import Articles from '../Articles'
-import Spinner from '../Spinner'
-import ErrorIndicator from '../ErrorIndicator'
+import { Articles } from '../Articles'
+import { Spinner } from '../Spinner'
+import { ErrorIndicator } from '../ErrorIndicator'
 
 import styles from './ArticlesList.module.scss'
 

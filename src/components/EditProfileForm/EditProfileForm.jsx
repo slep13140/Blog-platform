@@ -113,7 +113,7 @@ function EditProfileForm({ currentUser }) {
         </label>
         <div>{errors?.avatarImage && <p>{errors?.password?.message || 'Error!'}</p>}</div>
 
-        <button type="submit" className={styles.button}>
+        <button type="submit" className={styles.button} aria-label="save changes">
           Save
         </button>
       </form>

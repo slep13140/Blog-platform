@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import * as actions from '../../store/actions'
+import { DoNewRequest } from '../DoNewRequest'
 
 import styles from './SignInForm.module.scss'
 
@@ -21,16 +22,10 @@ function SignInForm({ logIn, currentUser }) {
   const urlSignIn = 'https://blog.kata.academy/api/users/login'
   const enteredData = {}
 
-  const signIn = async (url, obj) => {
-    const response = await fetch(url, obj)
-    const result = await response.json()
-    return result
-  }
-
   const onSubmit = (data) => {
     enteredData.email = data.email
     enteredData.password = data.password
-    signIn(`${urlSignIn}`, {
+    DoNewRequest(`${urlSignIn}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -82,7 +77,7 @@ function SignInForm({ logIn, currentUser }) {
           />
         </label>
 
-        <button type="submit" className={styles.button}>
+        <button type="submit" className={styles.button} aria-label="log in to your account">
           Login
         </button>
         <div>

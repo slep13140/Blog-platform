@@ -1,3 +1,1 @@
-import BlogHeader from './BlogHeader'
-
-export default BlogHeader
+export { default as BlogHeader } from './BlogHeader'

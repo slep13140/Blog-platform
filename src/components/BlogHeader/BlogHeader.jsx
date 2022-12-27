@@ -17,8 +17,8 @@ function BlogHeader({ logOut, currentUser = username, userImg = image, logIn = i
     return (
       <div className={styles.wrap}>
         <span className={styles.title}>Realworld Blog</span>
-        <Link to={'/'}>
-          <button className={styles.create_article} type="button">
+        <Link to={'/new-article'}>
+          <button className={styles.create_article} type="button" aria-label="Create new article">
             Create article
           </button>
         </Link>
@@ -29,7 +29,7 @@ function BlogHeader({ logOut, currentUser = username, userImg = image, logIn = i
           </div>
         </Link>
         <Link to={'/'}>
-          <button type="button" className={styles.logout} onClick={logOut}>
+          <button type="button" className={styles.logout} onClick={logOut} aria-label="Log Out">
             Log Out
           </button>
         </Link>
@@ -41,10 +41,15 @@ function BlogHeader({ logOut, currentUser = username, userImg = image, logIn = i
     <div className={styles.wrap}>
       <span className={styles.title}>Realworld Blog</span>
       <Link to={'/sign-in'}>
+        <button className={styles.create_article} type="button" aria-label="Create new article">
+          Create article
+        </button>
+      </Link>
+      <Link to={'/sign-in'}>
         <span className={styles.signIn}>Sign In</span>
       </Link>
       <Link to={'/sign-up'}>
-        <button className={styles.signUp} type="button">
+        <button className={styles.signUp} type="button" aria-label="Sign Up new account">
           Sign Up
         </button>
       </Link>

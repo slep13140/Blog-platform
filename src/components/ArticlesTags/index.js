@@ -1,3 +1,1 @@
-import ArticlesTags from './ArticlesTags'
-
-export default ArticlesTags
+export { default as ArticlesTags } from './ArticlesTags'

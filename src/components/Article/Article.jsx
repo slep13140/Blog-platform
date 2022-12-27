@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 
-import Articles from '../Articles/Articles'
-import Spinner from '../Spinner/Spinner'
-import ErrorIndicator from '../ErrorIndicator/ErrorIndicator'
+import { Articles } from '../Articles'
+import { Spinner } from '../Spinner'
+import { ErrorIndicator } from '../ErrorIndicator'
 
 import styles from './Article.module.scss'
 
@@ -27,7 +27,7 @@ function Article(props) {
   }
   useEffect(() => {
     getPost()
-  }, [])
+  }, [slugId])
 
   if (!articleLoad && articleError) {
     return <ErrorIndicator />
@@ -44,6 +44,7 @@ function Article(props) {
         tags={post.tagList}
         title={post.title}
         description={post.description}
+        slugId={slugId}
       />
       <div className={styles.body}>
         <ReactMarkdown>{post.body}</ReactMarkdown>

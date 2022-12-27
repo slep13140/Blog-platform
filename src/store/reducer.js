@@ -13,6 +13,7 @@ const reducer = (state, action) => {
           isLoggedIn: true,
         })
       )
+      console.log('action', action)
       const newObj = {
         ...action.data,
         isLoggedIn: true,
