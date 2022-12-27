@@ -18,6 +18,7 @@ function Article(props) {
         return res.json()
       })
       .then((body) => {
+        console.log('body.article', body.article)
         setPost(body.article)
         setArticleLoad(false)
       })

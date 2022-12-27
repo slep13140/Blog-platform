@@ -1,4 +1,8 @@
-const initialState = {}
+const initialState = {
+  loading: true,
+  error: false,
+  articlesData: [],
+}
 const reducer = (state, action) => {
   if (state === undefined) {
     return initialState
@@ -13,7 +17,6 @@ const reducer = (state, action) => {
           isLoggedIn: true,
         })
       )
-      console.log('action', action)
       const newObj = {
         ...action.data,
         isLoggedIn: true,
@@ -27,13 +30,39 @@ const reducer = (state, action) => {
       localStorage.setItem(
         'loggedData',
         JSON.stringify({
+          ...state,
           isLoggedIn: false,
         })
       )
       return {
         ...JSON.parse(localStorage.getItem('loggedData')),
       }
+    case 'GET_LIST_ARTICLES': {
+      const newArticles = [...state.articlesData, ...action.data]
+      return {
+        ...state,
+        loading: false,
+        articlesData: newArticles,
+      }
+    }
+    case 'ARTICLES_NO_LOAD':
+      return { ...state, error: true }
+    case 'FAVORITE_ARTICLE': {
+      const { slug, favorited, favoritesCount } = action.data
+      const favoriteArticle = state.articlesData.map((item) => {
+        if (slug === item.slug) {
+          item.favorited = favorited
+          item.favoritesCount = favoritesCount
+        }
+        return item
+      })
+      const newArticlesData = [...favoriteArticle]
 
+      return {
+        ...state,
+        articlesData: newArticlesData,
+      }
+    }
     default:
       return state
   }

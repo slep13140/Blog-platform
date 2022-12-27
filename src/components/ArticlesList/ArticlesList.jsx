@@ -1,31 +1,20 @@
 import React, { useEffect, useState } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import { List } from 'antd'
 
 import { Articles } from '../Articles'
 import { Spinner } from '../Spinner'
 import { ErrorIndicator } from '../ErrorIndicator'
+import * as actions from '../../store/actions'
 
 import styles from './ArticlesList.module.scss'
 
-const ArticlesList = () => {
-  const [data, setData] = useState([])
+const ArticlesList = ({ articlesData, articleLists, dataLoad, dataError }) => {
   const [offset, setOffset] = useState(0)
-  const [dataLoad, setDataLoad] = useState(true)
-  const [dataError, setDataError] = useState(false)
-  const dataUrl = 'https://blog.kata.academy/api/articles/?offset='
-  const appendData = (id) => {
-    fetch(`${dataUrl}${id}`)
-      .then((res) => res.json())
-      .then((body) => {
-        setData(data.concat(body.articles))
-        setDataLoad(false)
-      })
-      .catch(() => {
-        setDataError(true)
-      })
-  }
+
   useEffect(() => {
-    appendData(0)
+    articlesData(0)
   }, [])
 
   if (!dataLoad && dataError) {
@@ -43,27 +32,26 @@ const ArticlesList = () => {
         onChange: (page) => {
           if (page % 4 === 0 && page > offset) {
             setOffset(page)
-            appendData(page * 5)
+            articlesData(page * 5)
           }
         },
         pageSize: 5,
       }}
-      dataSource={data}
-      renderItem={(item, index) => {
-        const keyId = index
-
+      dataSource={articleLists}
+      renderItem={(item) => {
         return (
           <List.Item className={styles.articles}>
             <Articles
               author={item.author.username}
               avatar={item.author.image}
-              key={keyId}
+              key={item.slug}
               createdDate={item.createdAt}
               tags={item.tagList}
               title={item.title}
               description={item.description}
               slug={item.slug}
               like={item.favoritesCount}
+              favorited={item.favorited}
             />
           </List.Item>
         )
@@ -72,4 +60,18 @@ const ArticlesList = () => {
   )
 }
 
-export default ArticlesList
+const mapStateToProps = (state) => ({
+  articleLists: state.articlesData,
+  dataLoad: state.loading,
+  dataError: state.error,
+})
+
+const mapDispatchToProps = (dispatch) => {
+  const { articlesData } = bindActionCreators(actions, dispatch)
+
+  return {
+    articlesData,
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ArticlesList)

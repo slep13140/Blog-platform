@@ -1,10 +1,13 @@
 import React from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import { Card, Avatar, Popconfirm } from 'antd'
 import { HeartOutlined } from '@ant-design/icons'
 import { format } from 'date-fns'
 import { Link, withRouter } from 'react-router-dom'
 
 import { ArticlesTags } from '../ArticlesTags'
+import * as actions from '../../store/actions'
 
 import styles from './Articles.module.scss'
 
@@ -14,7 +17,9 @@ function Articles(props) {
   const { author, avatar, createdDate } = props
   const { tags, title, description } = props
   const { slug, like, slugId } = props
-  const { history } = props
+  const { history, logIn } = props
+  const { setFavorite } = props
+
   const release = format(new Date(createdDate), 'PP')
   let nameArticle = title
   const currentUser = JSON.parse(localStorage.getItem('loggedData')).username
@@ -35,6 +40,14 @@ function Articles(props) {
   }
   const getPost = (option) => {
     fetch(`https://blog.kata.academy/api/articles/${slugId}`, option).then(() => history.push('/'))
+  }
+
+  const setFavorites = () => {
+    if (logIn) {
+      setFavorite(slug, tokenUser)
+    } else {
+      return
+    }
   }
 
   if (currentUser === author) {
@@ -88,7 +101,7 @@ function Articles(props) {
             <Link key={slug} to={`/articles/${slug}`}>
               {nameArticle}
             </Link>
-            <HeartOutlined />
+            <HeartOutlined onClick={setFavorites} />
             <span>{like}</span>
           </div>
           <ArticlesTags className={styles.tag} tags={tags} />
@@ -101,4 +114,19 @@ function Articles(props) {
   )
 }
 
-export default withRouter(Articles)
+const mapStateToProps = (state) => ({
+  articleLists: state.articlesData,
+  dataLoad: state.loading,
+  dataError: state.error,
+  logIn: state.isLoggedIn,
+})
+
+const mapDispatchToProps = (dispatch) => {
+  const { setFavorite } = bindActionCreators(actions, dispatch)
+
+  return {
+    setFavorite,
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Articles))
