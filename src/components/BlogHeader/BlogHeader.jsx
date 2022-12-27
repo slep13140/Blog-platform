@@ -9,6 +9,8 @@ import * as actions from '../../store/actions'
 
 import styles from './BlogHeader.module.scss'
 
+localStorage.setItem('loggedData', JSON.stringify({ isLoggedIn: false }))
+
 const { username, image, isLoggedIn } = JSON.parse(localStorage.getItem('loggedData'))
 
 function BlogHeader({ logOut, currentUser = username, userImg = image, logIn = isLoggedIn }) {
