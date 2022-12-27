@@ -1,4 +1,5 @@
 const initialState = {
+  isLoggedIn: false,
   loading: true,
   error: false,
   articlesData: [],
