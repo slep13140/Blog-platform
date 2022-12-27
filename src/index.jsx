@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react'
 import thunk from 'redux-thunk'
 import { createRoot } from 'react-dom/client'
