@@ -9,13 +9,23 @@ import * as actions from '../../store/actions'
 
 import styles from './BlogHeader.module.scss'
 
-localStorage.setItem('loggedData', JSON.stringify({ isLoggedIn: false }))
+function BlogHeader({ logOut, currentUser, userImg, logIn }) {
+  let isLogIn
+  if (JSON.parse(localStorage.getItem('loggedData'))) {
+    isLogIn = JSON.parse(localStorage.getItem('loggedData')).isLoggedIn
+  }
 
-const { username, image, isLoggedIn } = JSON.parse(localStorage.getItem('loggedData'))
+  const currentLoggedIn = logIn || isLogIn
 
-function BlogHeader({ logOut, currentUser = username, userImg = image, logIn = isLoggedIn }) {
-  const picture = userImg ? <img alt="example" src={`${userImg}`} /> : <Avatar size={46} icon={<UserOutlined />} />
-  if (logIn) {
+  if (currentLoggedIn) {
+    const { username, image } = JSON.parse(localStorage.getItem('loggedData'))
+    const currentName = currentUser || username
+    const currentPicture = userImg || image
+    const picture = currentPicture ? (
+      <img alt="example" src={`${currentPicture}`} />
+    ) : (
+      <Avatar size={46} icon={<UserOutlined />} />
+    )
     return (
       <div className={styles.wrap}>
         <span className={styles.title}>Realworld Blog</span>
@@ -26,7 +36,7 @@ function BlogHeader({ logOut, currentUser = username, userImg = image, logIn = i
         </Link>
         <Link to={'/profile'}>
           <div className={styles.profile}>
-            <span>{currentUser}</span>
+            <span>{currentName}</span>
             {picture}
           </div>
         </Link>

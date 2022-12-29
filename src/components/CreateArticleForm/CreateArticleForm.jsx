@@ -1,12 +1,15 @@
 import React from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import { useParams, withRouter } from 'react-router-dom'
 import { useForm, useFieldArray } from 'react-hook-form'
 
-import { DoNewRequest } from '../DoNewRequest'
+// import { DoNewRequest } from '../DoNewRequest'
+import * as actions from '../../store/actions'
 
 import styles from './CreateArticleForm.module.scss'
 
-function CreateArticleForm({ history }) {
+function CreateArticleForm({ history, newArticle }) {
   const {
     register,
     handleSubmit,
@@ -55,7 +58,7 @@ function CreateArticleForm({ history }) {
       },
       body: JSON.stringify({ article: articleData }),
     }
-    DoNewRequest(createArticleUrl, createOptions).then(() => history.push('/'))
+    newArticle(createArticleUrl, createOptions).then(() => history.push('/'))
     reset()
   }
 
@@ -170,4 +173,19 @@ function CreateArticleForm({ history }) {
   )
 }
 
-export default withRouter(CreateArticleForm)
+const mapStateToProps = (state) => ({
+  articleLists: state.articlesData,
+  dataLoad: state.loading,
+  dataError: state.error,
+  logIn: state.isLoggedIn,
+})
+
+const mapDispatchToProps = (dispatch) => {
+  const { newArticle } = bindActionCreators(actions, dispatch)
+
+  return {
+    newArticle,
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CreateArticleForm))

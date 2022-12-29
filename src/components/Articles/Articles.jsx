@@ -9,7 +9,7 @@ import { Link, withRouter } from 'react-router-dom'
 import { ArticlesTags } from '../ArticlesTags'
 import * as actions from '../../store/actions'
 
-import styles from './Articles.module.scss'
+import './Articles.scss'
 
 const { Meta } = Card
 
@@ -17,13 +17,18 @@ function Articles(props) {
   const { author, avatar, createdDate } = props
   const { tags, title, description } = props
   const { slug, like, slugId } = props
-  const { history, logIn } = props
-  const { setFavorite } = props
-
+  const { history } = props
+  const { setFavorite, delArticle } = props
+  let currentUser
+  let tokenUser
+  let currenLogState
   const release = format(new Date(createdDate), 'PP')
   let nameArticle = title
-  const currentUser = JSON.parse(localStorage.getItem('loggedData')).username
-  const tokenUser = JSON.parse(localStorage.getItem('loggedData')).token
+  if (JSON.parse(localStorage.getItem('loggedData'))) {
+    currentUser = JSON.parse(localStorage.getItem('loggedData')).username
+    tokenUser = JSON.parse(localStorage.getItem('loggedData')).token
+    currenLogState = JSON.parse(localStorage.getItem('loggedData')).isLoggedIn
+  }
 
   const deleteOptions = {
     method: 'DELETE',
@@ -33,17 +38,14 @@ function Articles(props) {
     },
   }
   const confirm = () => {
-    getPost(deleteOptions)
+    delArticle(slugId, deleteOptions, tokenUser).then(() => history.push('/'))
   }
   const cancel = () => {
     return
   }
-  const getPost = (option) => {
-    fetch(`https://blog.kata.academy/api/articles/${slugId}`, option).then(() => history.push('/'))
-  }
 
   const setFavorites = () => {
-    if (logIn) {
+    if (currenLogState) {
       setFavorite(slug, tokenUser)
     } else {
       return
@@ -52,26 +54,26 @@ function Articles(props) {
 
   if (currentUser === author) {
     return (
-      <Card className={styles.wrap}>
-        <div className={styles.container}>
+      <Card className="wrap-articles">
+        <div className="container-articles">
           <Meta
-            className={styles.meta}
+            className="meta-articles"
             title={author}
             description={release}
             avatar={<Avatar size={46} src={avatar} />}
           />
           <div>
-            <div className={styles.titles}>
+            <div className="titles-articles">
               <Link key={slug} to={`/articles/${slug}`}>
                 {nameArticle}
               </Link>
               <HeartOutlined />
               <span>{like}</span>
             </div>
-            <ArticlesTags className={styles.tag} tags={tags} />
+            <ArticlesTags tags={tags} />
           </div>
         </div>
-        <div className={styles.describe}>
+        <div className="describe-articles">
           <span>{description}</span>
           <Popconfirm
             title="Are you sure to delete this article?"
@@ -93,21 +95,26 @@ function Articles(props) {
   }
 
   return (
-    <Card className={styles.wrap}>
-      <div className={styles.container}>
-        <Meta className={styles.meta} title={author} description={release} avatar={<Avatar size={46} src={avatar} />} />
+    <Card className="wrap-articles">
+      <div className="container-articles">
+        <Meta
+          className="meta-articles"
+          title={author}
+          description={release}
+          avatar={<Avatar size={46} src={avatar} />}
+        />
         <div>
-          <div className={styles.titles}>
+          <div className="titles-articles">
             <Link key={slug} to={`/articles/${slug}`}>
               {nameArticle}
             </Link>
             <HeartOutlined onClick={setFavorites} />
             <span>{like}</span>
           </div>
-          <ArticlesTags className={styles.tag} tags={tags} />
+          <ArticlesTags tags={tags} />
         </div>
       </div>
-      <div className={styles.describeNoCurrent}>
+      <div className="describeNoCurrent-articles">
         <span>{description}</span>
       </div>
     </Card>
@@ -118,14 +125,14 @@ const mapStateToProps = (state) => ({
   articleLists: state.articlesData,
   dataLoad: state.loading,
   dataError: state.error,
-  logIn: state.isLoggedIn,
 })
 
 const mapDispatchToProps = (dispatch) => {
-  const { setFavorite } = bindActionCreators(actions, dispatch)
+  const { setFavorite, delArticle } = bindActionCreators(actions, dispatch)
 
   return {
     setFavorite,
+    delArticle,
   }
 }
 

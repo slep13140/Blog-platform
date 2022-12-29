@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import * as actions from '../../store/actions'
-import { DoNewRequest } from '../DoNewRequest'
+import { retryRequest } from '../../utils'
 
 import styles from './SignUpForm.module.scss'
 
@@ -32,7 +32,7 @@ function SignUpForm({ logIn, currentUser }) {
     newUser.username = data.username
     newUser.email = data.email
     newUser.password = data.password
-    DoNewRequest(urlSignUp, {
+    retryRequest(urlSignUp, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',

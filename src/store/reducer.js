@@ -64,6 +64,36 @@ const reducer = (state, action) => {
         articlesData: newArticlesData,
       }
     }
+    case 'EDIT_ARTICLE': {
+      const newArticle = state.articlesData.map((item) => {
+        if (action.data.slug === item.slug) {
+          item = action.data
+        }
+        return item
+      })
+      const newArticles = [...newArticle]
+      return {
+        ...state,
+        loading: false,
+        articlesData: newArticles,
+      }
+    }
+    case 'NEW_ARTICLE': {
+      const newArticles = [{ ...action.data }, ...state.articlesData]
+      return {
+        ...state,
+        loading: false,
+        articlesData: newArticles,
+      }
+    }
+    case 'DEL_ARTICLE': {
+      const newArticles = [...action.data]
+      return {
+        ...state,
+        loading: false,
+        articlesData: newArticles,
+      }
+    }
     default:
       return state
   }

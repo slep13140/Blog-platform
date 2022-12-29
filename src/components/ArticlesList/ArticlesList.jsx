@@ -8,7 +8,7 @@ import { Spinner } from '../Spinner'
 import { ErrorIndicator } from '../ErrorIndicator'
 import * as actions from '../../store/actions'
 
-import styles from './ArticlesList.module.scss'
+import './ArticlesList.scss'
 
 const ArticlesList = ({ articlesData, articleLists, dataLoad, dataError }) => {
   const [offset, setOffset] = useState(0)
@@ -26,7 +26,7 @@ const ArticlesList = ({ articlesData, articleLists, dataLoad, dataError }) => {
   return (
     <List
       itemLayout="vertical"
-      className={styles.wrap}
+      className="wrap-articlesList"
       size="large"
       pagination={{
         onChange: (page) => {
@@ -40,7 +40,7 @@ const ArticlesList = ({ articlesData, articleLists, dataLoad, dataError }) => {
       dataSource={articleLists}
       renderItem={(item) => {
         return (
-          <List.Item className={styles.articles}>
+          <List.Item>
             <Articles
               author={item.author.username}
               avatar={item.author.image}

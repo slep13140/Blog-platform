@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import * as actions from '../../store/actions'
-import { DoNewRequest } from '../DoNewRequest'
+import { retryRequest } from '../../utils'
 
 import styles from './SignInForm.module.scss'
 
@@ -25,7 +25,7 @@ function SignInForm({ logIn, currentUser }) {
   const onSubmit = (data) => {
     enteredData.email = data.email
     enteredData.password = data.password
-    DoNewRequest(`${urlSignIn}`, {
+    retryRequest(`${urlSignIn}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
